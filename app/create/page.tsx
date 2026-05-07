@@ -1,11 +1,15 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 
 function StarField() {
-  const stars = Array.from({ length: 160 }, (_, i) => ({ id: i, x: Math.random()*100, y: Math.random()*100, size: Math.random()*2.2+0.4, dur: Math.random()*4+2, delay: Math.random()*6 }));
-  const shooters = Array.from({ length: 5 }, (_, i) => ({ id: i, x: Math.random()*70, y: Math.random()*40, delay: i*4+Math.random()*3, dur: 1+Math.random()*0.8 }));
+  const [stars, setStars] = useState<any[]>([]);
+  const [shooters, setShooters] = useState<any[]>([]);
+  useEffect(() => {
+    setStars(Array.from({ length: 160 }, (_, i) => ({ id: i, x: Math.random()*100, y: Math.random()*100, size: Math.random()*2.2+0.4, dur: Math.random()*4+2, delay: Math.random()*6 })));
+    setShooters(Array.from({ length: 5 }, (_, i) => ({ id: i, x: Math.random()*70, y: Math.random()*40, delay: i*4+Math.random()*3, dur: 1+Math.random()*0.8 })));
+  }, []);
   return (
     <div style={{ position:"fixed", inset:0, pointerEvents:"none", zIndex:0, overflow:"hidden" }}>
       {stars.map(s => <div key={s.id} style={{ position:"absolute", left:`${s.x}%`, top:`${s.y}%`, width:s.size, height:s.size, borderRadius:"50%", background: s.size>1.8?"#f5c842":"white", animation:`twinkle ${s.dur}s ease-in-out ${s.delay}s infinite` }} />)}

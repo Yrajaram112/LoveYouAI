@@ -10,8 +10,12 @@ interface LoveData {
 }
 
 function CosmicBg() {
-  const stars = Array.from({length:200},(_,i)=>({id:i,x:Math.random()*100,y:Math.random()*100,size:Math.random()*2.6+0.4,dur:Math.random()*5+2,delay:Math.random()*6,gold:Math.random()>0.85}));
-  const shooters = Array.from({length:9},(_,i)=>({id:i,x:Math.random()*80,y:Math.random()*40,delay:i*3.8+Math.random()*2.5,dur:1+Math.random()*0.7}));
+  const [stars,setStars]=useState<any[]>([]);
+  const [shooters,setShooters]=useState<any[]>([]);
+  useEffect(()=>{
+    setStars(Array.from({length:200},(_,i)=>({id:i,x:Math.random()*100,y:Math.random()*100,size:Math.random()*2.6+0.4,dur:Math.random()*5+2,delay:Math.random()*6,gold:Math.random()>0.85})));
+    setShooters(Array.from({length:9},(_,i)=>({id:i,x:Math.random()*80,y:Math.random()*40,delay:i*3.8+Math.random()*2.5,dur:1+Math.random()*0.7})));
+  },[]);
   return (
     <div style={{position:"fixed",inset:0,zIndex:0,overflow:"hidden",pointerEvents:"none"}}>
       {stars.map(s=><div key={s.id} style={{position:"absolute",left:`${s.x}%`,top:`${s.y}%`,width:s.size,height:s.size,borderRadius:"50%",background:s.gold?"#f5c842":"white",opacity:s.gold?0.7:1,animation:`twinkle ${s.dur}s ease-in-out ${s.delay}s infinite`}}/>)}
@@ -24,7 +28,10 @@ function CosmicBg() {
 }
 
 function FloatingHearts() {
-  const hearts = Array.from({length:20},(_,i)=>({id:i,x:Math.random()*100,dur:7+Math.random()*9,delay:Math.random()*12,size:12+Math.random()*22,op:0.06+Math.random()*0.13}));
+  const [hearts,setHearts]=useState<any[]>([]);
+  useEffect(()=>{
+    setHearts(Array.from({length:20},(_,i)=>({id:i,x:Math.random()*100,dur:7+Math.random()*9,delay:Math.random()*12,size:12+Math.random()*22,op:0.06+Math.random()*0.13})));
+  },[]);
   return (
     <div style={{position:"fixed",inset:0,pointerEvents:"none",zIndex:1,overflow:"hidden"}}>
       {hearts.map(h=><div key={h.id} style={{position:"absolute",left:`${h.x}%`,bottom:"-60px",fontSize:h.size,opacity:h.op,color:"#f5c842",animation:`float-up ${h.dur}s ease-in ${h.delay}s infinite`}}>♥</div>)}
@@ -33,8 +40,11 @@ function FloatingHearts() {
 }
 
 function Fireworks() {
-  const colors = ["#f5c842","#ff6b9d","#c4b5fd","#60a5fa","#ff9999","white"];
-  const particles = Array.from({length:55},(_,i)=>({id:i,angle:(i/55)*360,dist:90+Math.random()*130,color:colors[Math.floor(Math.random()*colors.length)],size:4+Math.random()*5,dur:0.8+Math.random()*0.6}));
+  const [particles,setParticles]=useState<any[]>([]);
+  useEffect(()=>{
+    const colors = ["#f5c842","#ff6b9d","#c4b5fd","#60a5fa","#ff9999","white"];
+    setParticles(Array.from({length:55},(_,i)=>({id:i,angle:(i/55)*360,dist:90+Math.random()*130,color:colors[Math.floor(Math.random()*colors.length)],size:4+Math.random()*5,dur:0.8+Math.random()*0.6})));
+  },[]);
   return (
     <div style={{position:"fixed",inset:0,pointerEvents:"none",zIndex:10,overflow:"hidden"}}>
       {[...Array(5)].map((_,b)=>(
@@ -52,7 +62,10 @@ function Fireworks() {
 }
 
 function MusicNotes() {
-  const notes = Array.from({length:10},(_,i)=>({id:i,note:["♪","♫","♩","♬","𝄞"][i%5],x:10+Math.random()*80,dur:3+Math.random()*3,delay:Math.random()*4,size:16+Math.random()*16}));
+  const [notes,setNotes]=useState<any[]>([]);
+  useEffect(()=>{
+    setNotes(Array.from({length:10},(_,i)=>({id:i,note:["♪","♫","♩","♬","𝄞"][i%5],x:10+Math.random()*80,dur:3+Math.random()*3,delay:Math.random()*4,size:16+Math.random()*16})));
+  },[]);
   return (
     <div style={{position:"absolute",inset:0,pointerEvents:"none",overflow:"hidden"}}>
       {notes.map(n=><div key={n.id} style={{position:"absolute",left:`${n.x}%`,bottom:0,fontSize:n.size,color:"#f5c842",opacity:0,animation:`music-float ${n.dur}s ease-out ${n.delay}s infinite`}}>{n.note}</div>)}
@@ -107,7 +120,10 @@ function Section({children,delay=0}:{children:React.ReactNode;delay?:number}) {
 }
 
 function PetalBurst({show}:{show:boolean}) {
-  const petals = Array.from({length:28},(_,i)=>({id:i,emoji:["🌸","🌹","✨","💫","⭐","🌺","💕"][i%7],tx:(Math.random()-0.5)*320,ty:-(80+Math.random()*220),rot:Math.random()*720-360,size:14+Math.random()*22,dur:0.7+Math.random()*0.9}));
+  const [petals,setPetals]=useState<any[]>([]);
+  useEffect(()=>{
+    setPetals(Array.from({length:28},(_,i)=>({id:i,emoji:["🌸","🌹","✨","💫","⭐","🌺","💕"][i%7],tx:(Math.random()-0.5)*320,ty:-(80+Math.random()*220),rot:Math.random()*720-360,size:14+Math.random()*22,dur:0.7+Math.random()*0.9})));
+  },[]);
   if(!show) return null;
   return (
     <div style={{position:"absolute",top:"50%",left:"50%",pointerEvents:"none",zIndex:20}}>
@@ -127,11 +143,13 @@ export default function OpenStoryPage({ params }: { params: Promise<{ id: string
   const [letterDone, setLetterDone] = useState(false);
 
   useEffect(()=>{
+    console.log("[open/[id]] Fetching with ID:", id);
     readClient.fetch(LOVE_QUERY,{id}).then(d=>{
-      if(!d){setError(true);return;}
+      console.log("[open/[id]] Query result:", d);
+      if(!d){console.error("[open/[id]] Document not found");setError(true);return;}
       setData(d);
       setTimeout(()=>setScene("greeting"),800);
-    }).catch(()=>setError(true));
+    }).catch(err=>{console.error("[open/[id]] Fetch error:", err);setError(true);});
   },[id]);
 
   const openEnvelope=()=>{

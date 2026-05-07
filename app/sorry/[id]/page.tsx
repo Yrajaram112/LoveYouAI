@@ -29,8 +29,11 @@ function PinkCosmos() {
 
 // ── Kiss confetti ───────────────────────────────────────────────────────────
 function KissBurst() {
-  const emojis=["💋","💗","💖","🌸","✨","🩷","💕","😘","🎀","💝"];
-  const particles=Array.from({length:90},(_,i)=>({id:i,emoji:emojis[i%emojis.length],angle:(i/90)*360,dist:100+Math.random()*200,size:16+Math.random()*26,dur:0.7+Math.random()*0.9,delay:Math.random()*0.5}));
+  const [particles,setParticles]=useState<any[]>([]);
+  useEffect(()=>{
+    const emojis=["💋","💗","💖","🌸","✨","🩷","💕","😘","🎀","💝"];
+    setParticles(Array.from({length:90},(_,i)=>({id:i,emoji:emojis[i%emojis.length],angle:(i/90)*360,dist:100+Math.random()*200,size:16+Math.random()*26,dur:0.7+Math.random()*0.9,delay:Math.random()*0.5})));
+  },[]);
   return (
     <div style={{position:"fixed",inset:0,pointerEvents:"none",zIndex:50,overflow:"hidden"}}>
       {[...Array(7)].map((_,b)=>(
@@ -170,11 +173,13 @@ export default function SorryStoryPage({ params }: { params: Promise<{ id: strin
   const [kissBurst,setKissBurst]=useState(false);
 
   useEffect(()=>{
+    console.log("[sorry/[id]] Fetching with ID:", id);
     readClient.fetch(SORRY_QUERY,{id}).then(d=>{
-      if(!d){setError(true);return;}
+      console.log("[sorry/[id]] Query result:", d);
+      if(!d){console.error("[sorry/[id]] Document not found");setError(true);return;}
       setData(d);
       setTimeout(()=>setScene("apology"),700);
-    }).catch(()=>setError(true));
+    }).catch(err=>{console.error("[sorry/[id]] Fetch error:", err);setError(true);});
   },[id]);
 
   const handleForgiven=useCallback(()=>{
