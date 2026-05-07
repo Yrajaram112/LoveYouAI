@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { BRAND_IMG } from "@/lib/branding";
 
 function StarField() {
   const [stars, setStars] = useState<any[]>([]);
@@ -130,8 +130,9 @@ export default function CreatePage() {
           {/* ── MODE PICKER ── */}
           {mode==="pick" && (
             <motion.div key="pick" initial={{opacity:0,y:30}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-20}} transition={{duration:0.7}} style={{textAlign:"center",maxWidth:640,width:"100%"}}>
-              <motion.div animate={{scale:[1,1.08,1]}} transition={{duration:3,repeat:Infinity,ease:"easeInOut"}} style={{fontSize:"3rem",marginBottom:16}}>✦</motion.div>
-              <h1 style={{ fontFamily:"'Cinzel',serif", fontSize:"clamp(2rem,6vw,3.8rem)", fontWeight:700, letterSpacing:"0.08em", color:"#f5c842", textShadow:"0 0 40px rgba(245,200,66,0.5)", marginBottom:8 }}>LoveYouAI</h1>
+              <motion.img initial={{opacity:0,y:16}} animate={{opacity:1,y:0}} transition={{duration:0.8}}
+                src={BRAND_IMG.hero} alt="LoveYouAI"
+                style={{ display:"block", margin:"0 auto 20px", width:"min(340px,88vw)", height:"auto", filter:"drop-shadow(0 0 28px rgba(245,200,66,0.35))" }} />
               <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1rem,2.5vw,1.25rem)", color:"rgba(240,240,255,0.6)", fontStyle:"italic", marginBottom:12 }}>A love letter, built into a link.</p>
               <div style={{ width:80, height:1, background:"linear-gradient(to right,transparent,#f5c842,transparent)", margin:"0 auto 40px" }} />
 
@@ -139,19 +140,22 @@ export default function CreatePage() {
                 {/* Love Letter */}
                 <motion.button whileHover={{scale:1.03,y:-4}} whileTap={{scale:0.97}} onClick={()=>setMode("love-form")}
                   style={{ background:"rgba(245,200,66,0.05)", border:"1px solid rgba(245,200,66,0.2)", borderRadius:24, padding:"36px 24px", cursor:"pointer", textAlign:"center", color:"inherit", transition:"all 0.3s" }}>
-                  <div style={{fontSize:"2.8rem",marginBottom:14}}>💌</div>
+                  <img src={BRAND_IMG.loveLetter} alt="" width={160} height={160} style={{ width:"min(160px,42vw)", height:"auto", margin:"0 auto 14px", display:"block", objectFit:"contain" }} />
                   <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.78rem", letterSpacing:"0.18em", color:"#f5c842", textTransform:"uppercase", marginBottom:10 }}>Love Letter</div>
                   <div style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"0.95rem", color:"rgba(255,255,255,0.4)", fontStyle:"italic", lineHeight:1.7 }}>Make her feel like the whole universe rearranged itself for her</div>
                 </motion.button>
                 {/* She's Mad */}
                 <motion.button whileHover={{scale:1.03,y:-4}} whileTap={{scale:0.97}} onClick={()=>setMode("sorry-form")}
                   style={{ background:"rgba(255,110,180,0.05)", border:"1px solid rgba(255,110,180,0.2)", borderRadius:24, padding:"36px 24px", cursor:"pointer", textAlign:"center", color:"inherit", transition:"all 0.3s" }}>
-                  <div style={{fontSize:"2.8rem",marginBottom:14}}>🥺</div>
+                  <img src={BRAND_IMG.sorry} alt="" width={160} height={160} style={{ width:"min(160px,42vw)", height:"auto", margin:"0 auto 14px", display:"block", objectFit:"contain" }} />
                   <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.78rem", letterSpacing:"0.18em", color:"#ff6eb4", textTransform:"uppercase", marginBottom:10 }}>She's Mad at Me</div>
                   <div style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"0.95rem", color:"rgba(255,255,255,0.4)", fontStyle:"italic", lineHeight:1.7 }}>Playful apology page — the "No" button literally runs away 😈</div>
                 </motion.button>
               </div>
-              <p style={{ fontFamily:"'Space Mono',monospace", fontSize:"0.6rem", color:"rgba(255,255,255,0.15)", letterSpacing:"0.08em" }}>powered by sanity · zero bs · pure love</p>
+              <div style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:10, flexWrap:"wrap" }}>
+                <img src={BRAND_IMG.logo} alt="" width={28} height={28} style={{ width:28, height:28, opacity:0.35, objectFit:"contain" }} />
+                <p style={{ fontFamily:"'Space Mono',monospace", fontSize:"0.6rem", color:"rgba(255,255,255,0.15)", letterSpacing:"0.08em", margin:0 }}>powered by love · pure love</p>
+              </div>
             </motion.div>
           )}
 
@@ -159,6 +163,7 @@ export default function CreatePage() {
           {mode==="love-form" && (
             <motion.div key="love-form" initial={{opacity:0,y:40}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-30}} transition={{duration:0.7}} style={{width:"100%",maxWidth:580}}>
               <div style={{textAlign:"center",marginBottom:36}}>
+                <img src={BRAND_IMG.loveLetter} alt="" width={120} height={120} style={{ width:"min(120px,28vw)", height:"auto", margin:"0 auto 14px", display:"block", objectFit:"contain", filter:"drop-shadow(0 0 16px rgba(245,200,66,0.25))" }} />
                 <h2 style={{ fontFamily:"'Cinzel',serif", fontSize:"clamp(1.4rem,4vw,2rem)", color:"#f5c842", letterSpacing:"0.1em", marginBottom:8 }}>✦ Build Her Universe</h2>
                 <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1rem", color:"rgba(255,255,255,0.35)", fontStyle:"italic" }}>Every field becomes a constellation in her sky</p>
               </div>
@@ -191,7 +196,7 @@ export default function CreatePage() {
                     <button onClick={()=>fileRef.current?.click()} style={{ padding:"11px 20px", border:"1px dashed rgba(245,200,66,0.35)", borderRadius:10, background:"rgba(245,200,66,0.04)", color:"rgba(255,255,255,0.5)", cursor:"pointer", fontFamily:"'Cormorant Garamond',serif", fontSize:"0.95rem" }}>📷 Choose Photo</button>
                     <input ref={fileRef} type="file" accept="image/*" style={{display:"none"}} onChange={handlePhoto}/>
                     {photoPreview && <div style={{width:52,height:52,borderRadius:8,overflow:"hidden",border:"2px solid rgba(245,200,66,0.4)"}}><img src={photoPreview} alt="preview" style={{width:"100%",height:"100%",objectFit:"cover"}}/></div>}
-                    {!photoPreview && <span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.62rem",color:"rgba(255,255,255,0.18)"}}>Uploaded to Sanity CDN — crisp on any device 🌟</span>}
+                    {!photoPreview && <span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.62rem",color:"rgba(255,255,255,0.18)"}}>Memorable Picture to make her smile 🌟</span>}
                   </div>
                 </div>
 
@@ -209,6 +214,7 @@ export default function CreatePage() {
           {mode==="sorry-form" && (
             <motion.div key="sorry-form" initial={{opacity:0,y:40}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-30}} transition={{duration:0.7}} style={{width:"100%",maxWidth:580}}>
               <div style={{textAlign:"center",marginBottom:36}}>
+                <img src={BRAND_IMG.sorry} alt="" width={120} height={120} style={{ width:"min(120px,28vw)", height:"auto", margin:"0 auto 14px", display:"block", objectFit:"contain", filter:"drop-shadow(0 0 18px rgba(255,110,180,0.3))" }} />
                 <h2 style={{ fontFamily:"'Cinzel',serif", fontSize:"clamp(1.4rem,4vw,2rem)", color:"#ff6eb4", letterSpacing:"0.1em", marginBottom:8 }}>💋 The Apology Page</h2>
                 <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1rem", color:"rgba(255,200,220,0.4)", fontStyle:"italic" }}>She can't stay mad. The "No" button won't let her.</p>
               </div>

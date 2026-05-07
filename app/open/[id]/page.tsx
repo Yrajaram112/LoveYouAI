@@ -2,6 +2,7 @@
 import { use, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { readClient, LOVE_QUERY } from "@/lib/sanity";
+import { BRAND_IMG } from "@/lib/branding";
 
 interface LoveData {
   _id: string; to: string; from: string; message: string;
@@ -198,6 +199,9 @@ export default function OpenStoryPage({ params }: { params: Promise<{ id: string
         {scene==="greeting"&&(
           <motion.div key="greeting" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0,scale:1.04}} transition={{duration:1}}
             style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",padding:"60px 24px",position:"relative",zIndex:2}}>
+            <motion.img initial={{opacity:0,y:-14}} animate={{opacity:1,y:0}} transition={{delay:0.05,duration:0.7}}
+              src={BRAND_IMG.loveLetter} alt=""
+              style={{height:56,width:"auto",marginBottom:28,objectFit:"contain",filter:"drop-shadow(0 0 14px rgba(245,200,66,0.28))"}}/>
             <div style={{position:"relative",marginBottom:36}}>
               {[...Array(3)].map((_,i)=>(
                 <div key={i} style={{position:"absolute",top:"50%",left:"50%",width:180,height:180,borderRadius:"50%",border:`1px solid rgba(245,200,66,${0.25-i*0.07})`,animation:`ring-pulse 2.5s ease-out ${i*0.55}s infinite`}}/>
@@ -353,8 +357,9 @@ export default function OpenStoryPage({ params }: { params: Promise<{ id: string
                   </div>
                   <div style={{fontFamily:"'Dancing Script',cursive",fontSize:"clamp(1.2rem,3vw,1.5rem)",color:"rgba(245,200,66,0.65)",marginBottom:8}}>Made just for you,</div>
                   <div style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(1rem,2.8vw,1.25rem)",color:"rgba(255,255,255,0.45)",letterSpacing:"0.18em"}}>— {data.from} —</div>
-                  <div style={{marginTop:64,paddingTop:40,borderTop:"1px solid rgba(245,200,66,0.08)"}}>
-                    <p style={{fontFamily:"'Space Mono',monospace",fontSize:"0.58rem",color:"rgba(255,255,255,0.12)",letterSpacing:"0.1em"}}>LOVEYOUAI · built with love · no distance too far</p>
+                  <div style={{marginTop:64,paddingTop:40,borderTop:"1px solid rgba(245,200,66,0.08)",display:"flex",flexDirection:"column",alignItems:"center",gap:14}}>
+                    <img src={BRAND_IMG.logo} alt="LoveYouAI" style={{height:38,width:"auto",opacity:0.7,objectFit:"contain"}}/>
+                    <p style={{fontFamily:"'Space Mono',monospace",fontSize:"0.58rem",color:"rgba(255,255,255,0.12)",letterSpacing:"0.1em",margin:0}}>LOVEYOUAI · built with love · no distance too far</p>
                   </div>
                 </div>
               </Section>

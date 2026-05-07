@@ -2,6 +2,7 @@
 import { use, useEffect, useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { readClient, SORRY_QUERY } from "@/lib/sanity";
+import { BRAND_IMG } from "@/lib/branding";
 
 interface SorryData {
   _id: string; to: string; from: string; apology: string;
@@ -236,6 +237,10 @@ export default function SorryStoryPage({ params }: { params: Promise<{ id: strin
           <motion.div key="apology" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0,scale:0.97}} transition={{duration:0.9}}
             style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",padding:"60px 24px",position:"relative",zIndex:2}}>
 
+            <motion.img initial={{opacity:0,y:-10}} animate={{opacity:1,y:0}} transition={{duration:0.65}}
+              src={BRAND_IMG.sorry} alt=""
+              style={{height:54,width:"auto",marginBottom:12,objectFit:"contain",filter:"drop-shadow(0 0 14px rgba(255,110,180,0.35))"}}/>
+
             <Mascot mood="devastated"/>
 
             <motion.div initial={{opacity:0,y:26}} animate={{opacity:1,y:0}} transition={{delay:0.4,duration:0.9}} style={{marginTop:28,marginBottom:14}}>
@@ -368,9 +373,12 @@ export default function SorryStoryPage({ params }: { params: Promise<{ id: strin
               ))}
             </motion.div>
 
-            <motion.p initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.8}} style={{fontFamily:"'Space Mono',monospace",fontSize:"0.58rem",color:"rgba(255,150,200,0.18)",letterSpacing:"0.1em"}}>
-              LOVEYOUAI · no more fights · just forever 💋
-            </motion.p>
+            <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.8}} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:12}}>
+              <img src={BRAND_IMG.logo} alt="LoveYouAI" style={{height:32,width:"auto",opacity:0.55,objectFit:"contain"}}/>
+              <p style={{fontFamily:"'Space Mono',monospace",fontSize:"0.58rem",color:"rgba(255,150,200,0.18)",letterSpacing:"0.1em",margin:0}}>
+                LOVEYOUAI · no more fights · just forever 💋
+              </p>
+            </motion.div>
           </motion.div>
         )}
 

@@ -2,6 +2,7 @@
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect, useRef, useCallback, Suspense } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import { BRAND_IMG } from "@/lib/branding";
 
 // ── Types ───────────────────────────────────────────────────────────────────
 interface SorryData {
@@ -250,6 +251,10 @@ function SorryPageInner() {
           <motion.div key="apology" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, scale: 0.97 }}
             style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "60px 24px", position: "relative", zIndex: 2 }}>
 
+            <motion.img initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}
+              src={BRAND_IMG.sorry} alt=""
+              style={{ height: 54, width: "auto", marginBottom: 12, objectFit: "contain", filter: "drop-shadow(0 0 14px rgba(255,110,180,0.35))" }} />
+
             <Mascot mood="sad" />
 
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8 }}
@@ -424,8 +429,11 @@ function SorryPageInner() {
             </motion.div>
 
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6 }}
-              style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: "rgba(255,150,200,0.2)", letterSpacing: "0.1em" }}>
-              LOVEYOUAI · no more fights · just kisses 💋
+              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+              <img src={BRAND_IMG.logo} alt="LoveYouAI" style={{ height: 32, width: "auto", opacity: 0.55, objectFit: "contain" }} />
+              <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: "rgba(255,150,200,0.2)", letterSpacing: "0.1em", margin: 0 }}>
+                LOVEYOUAI · no more fights · just kisses 💋
+              </p>
             </motion.div>
           </motion.div>
         )}

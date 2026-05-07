@@ -2,8 +2,7 @@
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect, useRef, Suspense } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-
-// ── Types ──────────────────────────────────────────────────────────────────
+import { BRAND_IMG } from "@/lib/branding";
 interface LoveData {
   to: string; from: string; msg: string; mem: string;
   date: string; song: string; photo: string; photoKey?: string;
@@ -296,6 +295,10 @@ function OpenPageInner() {
           <motion.div key="greeting" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, scale: 1.05 }} transition={{ duration: 1 }}
             style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "40px 20px", position: "relative", zIndex: 2 }}>
 
+            <motion.img initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05, duration: 0.65 }}
+              src={BRAND_IMG.loveLetter} alt=""
+              style={{ height: 52, width: "auto", marginBottom: 24, objectFit: "contain", filter: "drop-shadow(0 0 12px rgba(245,200,66,0.28))" }} />
+
             {/* Glowing ring behind name */}
             <div style={{ position: "relative", marginBottom: 32 }}>
               {[...Array(3)].map((_, i) => (
@@ -560,8 +563,9 @@ function OpenPageInner() {
                     — {data.from} —
                   </div>
 
-                  <div style={{ marginTop: 64, paddingTop: 40, borderTop: "1px solid rgba(245,200,66,0.1)" }}>
-                    <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: "rgba(255,255,255,0.15)", letterSpacing: "0.1em" }}>
+                  <div style={{ marginTop: 64, paddingTop: 40, borderTop: "1px solid rgba(245,200,66,0.1)", display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
+                    <img src={BRAND_IMG.logo} alt="LoveYouAI" style={{ height: 38, width: "auto", opacity: 0.7, objectFit: "contain" }} />
+                    <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: "rgba(255,255,255,0.15)", letterSpacing: "0.1em", margin: 0 }}>
                       LOVEYOUAI · built with love · no database · just stars
                     </p>
                   </div>
