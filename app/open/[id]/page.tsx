@@ -354,7 +354,7 @@ export default function OpenStoryPage({ params }: { params: Promise<{ id: string
                   <div style={{fontFamily:"'Dancing Script',cursive",fontSize:"clamp(1.2rem,3vw,1.5rem)",color:"rgba(245,200,66,0.65)",marginBottom:8}}>Made just for you,</div>
                   <div style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(1rem,2.8vw,1.25rem)",color:"rgba(255,255,255,0.45)",letterSpacing:"0.18em"}}>— {data.from} —</div>
                   <div style={{marginTop:64,paddingTop:40,borderTop:"1px solid rgba(245,200,66,0.08)"}}>
-                    <p style={{fontFamily:"'Space Mono',monospace",fontSize:"0.58rem",color:"rgba(255,255,255,0.12)",letterSpacing:"0.1em"}}>FORYOUONLY · built with love · no distance too far</p>
+                    <p style={{fontFamily:"'Space Mono',monospace",fontSize:"0.58rem",color:"rgba(255,255,255,0.12)",letterSpacing:"0.1em"}}>LOVEYOUAI · built with love · no distance too far</p>
                   </div>
                 </div>
               </Section>

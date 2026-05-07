@@ -131,7 +131,7 @@ export default function CreatePage() {
           {mode==="pick" && (
             <motion.div key="pick" initial={{opacity:0,y:30}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-20}} transition={{duration:0.7}} style={{textAlign:"center",maxWidth:640,width:"100%"}}>
               <motion.div animate={{scale:[1,1.08,1]}} transition={{duration:3,repeat:Infinity,ease:"easeInOut"}} style={{fontSize:"3rem",marginBottom:16}}>✦</motion.div>
-              <h1 style={{ fontFamily:"'Cinzel',serif", fontSize:"clamp(2rem,6vw,3.8rem)", fontWeight:700, letterSpacing:"0.08em", color:"#f5c842", textShadow:"0 0 40px rgba(245,200,66,0.5)", marginBottom:8 }}>ForYouOnly</h1>
+              <h1 style={{ fontFamily:"'Cinzel',serif", fontSize:"clamp(2rem,6vw,3.8rem)", fontWeight:700, letterSpacing:"0.08em", color:"#f5c842", textShadow:"0 0 40px rgba(245,200,66,0.5)", marginBottom:8 }}>LoveYouAI</h1>
               <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1rem,2.5vw,1.25rem)", color:"rgba(240,240,255,0.6)", fontStyle:"italic", marginBottom:12 }}>A love letter, built into a link.</p>
               <div style={{ width:80, height:1, background:"linear-gradient(to right,transparent,#f5c842,transparent)", margin:"0 auto 40px" }} />
 

@@ -369,7 +369,7 @@ export default function SorryStoryPage({ params }: { params: Promise<{ id: strin
             </motion.div>
 
             <motion.p initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.8}} style={{fontFamily:"'Space Mono',monospace",fontSize:"0.58rem",color:"rgba(255,150,200,0.18)",letterSpacing:"0.1em"}}>
-              FORYOUONLY · no more fights · just forever 💋
+              LOVEYOUAI · no more fights · just forever 💋
             </motion.p>
           </motion.div>
         )}

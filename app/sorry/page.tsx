@@ -425,7 +425,7 @@ function SorryPageInner() {
 
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6 }}
               style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: "rgba(255,150,200,0.2)", letterSpacing: "0.1em" }}>
-              FORYOUONLY · no more fights · just kisses 💋
+              LOVEYOUAI · no more fights · just kisses 💋
             </motion.div>
           </motion.div>
         )}

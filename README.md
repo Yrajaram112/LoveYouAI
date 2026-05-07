@@ -1,4 +1,4 @@
-# 💌 ForYouOnly — A Love Letter Built Into a Link
+# 💌 LoveYouAI — A Love Letter Built Into a Link
 
 > Make her feel like the entire universe was built just for her. Or make her forgive you. Either way.
 
@@ -14,7 +14,7 @@
 
 ### 1. Create a Sanity project (free)
 ```
-npx sanity@latest init --project foryouonly --dataset production
+npx sanity@latest init --project LOVEYOUAI --dataset production
 ```
 Or go to https://sanity.io → New Project → copy your **Project ID**
 

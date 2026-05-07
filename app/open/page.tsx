@@ -562,7 +562,7 @@ function OpenPageInner() {
 
                   <div style={{ marginTop: 64, paddingTop: 40, borderTop: "1px solid rgba(245,200,66,0.1)" }}>
                     <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: "rgba(255,255,255,0.15)", letterSpacing: "0.1em" }}>
-                      FORYOUONLY · built with love · no database · just stars
+                      LOVEYOUAI · built with love · no database · just stars
                     </p>
                   </div>
                 </div>
