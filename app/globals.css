@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;700&family=Dancing+Script:wght@400;700&family=Space+Mono:ital@0;1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cosmic-black: #02020a;
+  --deep-space: #060614;
+  --navy: #080820;
+  --gold: #f5c842;
+  --gold-dim: #c9a227;
+  --gold-glow: rgba(245, 200, 66, 0.4);
+  --stardust: #e8e0ff;
+  --rose-gold: #e8a4a4;
+  --nebula-blue: #1a1a4e;
+  --nebula-purple: #2d1b69;
+  --nebula-pink: #4a0e3a;
+  --star-white: #f0f0ff;
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-display: 'Cinzel', serif;
+  --font-script: 'Dancing Script', cursive;
+  --font-mono: 'Space Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--cosmic-black);
+  color: var(--star-white);
+  font-family: var(--font-serif);
+  overflow-x: hidden;
+}
+
+.glow-gold {
+  text-shadow: 0 0 20px rgba(245,200,66,0.6), 0 0 40px rgba(245,200,66,0.3);
+}
+.glow-white {
+  text-shadow: 0 0 20px rgba(255,255,255,0.4), 0 0 40px rgba(255,255,255,0.2);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(245, 200, 66, 0.15);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+}
+
+.cosmic-input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(245, 200, 66, 0.2);
+  border-radius: 12px;
+  color: #f0f0ff;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  padding: 14px 18px;
+  width: 100%;
+  transition: all 0.3s ease;
+  outline: none;
+}
+.cosmic-input:focus {
+  border-color: #f5c842;
+  background: rgba(245, 200, 66, 0.06);
+  box-shadow: 0 0 0 3px rgba(245, 200, 66, 0.1);
+}
+.cosmic-input::placeholder { color: rgba(255,255,255,0.25); font-style: italic; }
+
+.cosmic-btn {
+  background: linear-gradient(135deg, #f5c842, #c9a227);
+  color: #02020a;
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 16px 40px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 30px rgba(245, 200, 66, 0.3);
+  font-weight: 700;
+}
+.cosmic-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(245, 200, 66, 0.4);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+@keyframes float-up {
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 0.7; }
+  100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
+}
+@keyframes heart-beat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.2); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.1); }
+}
+@keyframes nebula-drift {
+  0% { transform: scale(1) rotate(0deg); opacity: 0.12; }
+  100% { transform: scale(1.3) rotate(15deg); opacity: 0.22; }
+}
+@keyframes shoot {
+  0% { opacity: 0; transform: translateX(0) translateY(0); }
+  5% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(300px) translateY(300px); }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; } 50% { opacity: 0; }
+}
+@keyframes ring-pulse {
+  0% { transform: translate(-50%,-50%) scale(0.8); opacity: 0.8; }
+  100% { transform: translate(-50%,-50%) scale(2.5); opacity: 0; }
+}
+@keyframes section-reveal {
+  from { opacity: 0; transform: translateY(50px); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+@keyframes music-float {
+  0% { opacity: 0; transform: translateY(0) rotate(0deg) scale(0.5); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-100px) rotate(20deg) scale(1); }
+}
+@keyframes petal-fly {
+  0% { opacity: 1; transform: translate(0,0) rotate(0deg) scale(1); }
+  100% { opacity: 0; transform: translate(var(--tx),var(--ty)) rotate(var(--rot)) scale(0.3); }
+}
+@keyframes polaroid-drop {
+  0% { opacity: 0; transform: rotate(var(--r)) translateY(-60px); }
+  60% { transform: rotate(var(--r)) translateY(8px); }
+  100% { opacity: 1; transform: rotate(var(--r)) translateY(0); }
+}
+@keyframes envelope-fall {
+  0% { opacity: 0; transform: translateY(-80px) rotate(-3deg); }
+  70% { transform: translateY(8px) rotate(1deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+@keyframes counter-flash {
+  0%, 100% { color: #f5c842; }
+  50% { color: white; text-shadow: 0 0 40px white; }
+}
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
