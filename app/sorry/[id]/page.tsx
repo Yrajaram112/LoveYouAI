@@ -9,41 +9,44 @@ interface SorryData {
   reasons: string[]; extra: string; forgiven: boolean;
 }
 
-// ── Pink Cosmic Background ──────────────────────────────────────────────────
-function PinkCosmos() {
-  const [kisses,setKisses]=useState<any[]>([]);
-  const [stars,setStars]=useState<any[]>([]);
-  useEffect(()=>{
-    setKisses(Array.from({length:24},(_,i)=>({id:i,x:Math.random()*100,dur:6+Math.random()*9,delay:Math.random()*12,size:13+Math.random()*22,op:0.05+Math.random()*0.1,emoji:["💋","💗","🌸","💕","✨","💖","🩷","😘"][Math.floor(Math.random()*8)]})));
-    setStars(Array.from({length:110},(_,i)=>({id:i,x:Math.random()*100,y:Math.random()*100,w:Math.random()*2.2+0.4,h:Math.random()*2.2+0.4,h1:315+Math.random()*50,h2:75+Math.random()*25,dur:2+Math.random()*4,delay:Math.random()*5})));
-  },[]);
+/* ─── Pink blob bg ──────────────────────────────────────────────── */
+function PinkBg() {
   return (
-    <div style={{position:"fixed",inset:0,pointerEvents:"none",zIndex:0,overflow:"hidden"}}>
-      <div style={{position:"absolute",top:"-20%",left:"-10%",width:"70vw",height:"70vw",borderRadius:"50%",background:"radial-gradient(circle,#c2185b,transparent 70%)",filter:"blur(80px)",opacity:0.1,animation:"nebula-drift 11s ease-in-out infinite alternate"}}/>
-      <div style={{position:"absolute",bottom:"-15%",right:"-10%",width:"65vw",height:"65vw",borderRadius:"50%",background:"radial-gradient(circle,#880e4f,transparent 70%)",filter:"blur(80px)",opacity:0.1,animation:"nebula-drift 9s ease-in-out infinite alternate-reverse"}}/>
-      <div style={{position:"absolute",top:"35%",right:"15%",width:"45vw",height:"45vw",borderRadius:"50%",background:"radial-gradient(circle,#ad1457,transparent 70%)",filter:"blur(65px)",opacity:0.08,animation:"nebula-drift 7s ease-in-out 1s infinite alternate"}}/>
-      {stars.map(s=><div key={s.id} style={{position:"absolute",left:`${s.x}%`,top:`${s.y}%`,width:s.w,height:s.h,borderRadius:"50%",background:`hsl(${s.h1},90%,${s.h2}%)`,animation:`twinkle ${s.dur}s ease-in-out ${s.delay}s infinite`}}/>)}
-      {kisses.map(k=><div key={k.id} style={{position:"absolute",left:`${k.x}%`,bottom:"-60px",fontSize:k.size,opacity:k.op,animation:`float-up ${k.dur}s ease-in ${k.delay}s infinite`}}>{k.emoji}</div>)}
+    <div className="mesh-bg-pink" style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none" }}>
+      <div style={{ position: "absolute", top: "-10%", left: "-15%", width: "70vw", height: "70vw", borderRadius: "50%", background: "rgba(255,77,126,0.2)", filter: "blur(90px)", animation: "blob-drift 14s ease-in-out infinite alternate" }} />
+      <div style={{ position: "absolute", bottom: "0%", right: "-15%", width: "65vw", height: "65vw", borderRadius: "50%", background: "rgba(255,107,163,0.16)", filter: "blur(90px)", animation: "blob-drift 11s ease-in-out 2s infinite alternate-reverse" }} />
+      <div style={{ position: "absolute", top: "40%", right: "10%", width: "45vw", height: "45vw", borderRadius: "50%", background: "rgba(224,50,105,0.1)", filter: "blur(70px)", animation: "blob-drift 17s ease-in-out 5s infinite alternate" }} />
+      {Array.from({ length: 20 }, (_, i) => (
+        <div key={i} style={{ position: "absolute", left: `${(i * 47 + 3) % 100}%`, top: `${(i * 71 + 7) % 100}%`, width: `${1 + (i % 3) * 0.8}px`, height: `${1 + (i % 3) * 0.8}px`, borderRadius: "50%", background: ["#FF85A2", "#FF6FA3", "#FFB3D4", "white"][i % 4], opacity: 0.35, animation: `twinkle ${3 + (i % 4)}s ease-in-out ${i * 0.4}s infinite` }} />
+      ))}
+      {/* Floating kiss emojis */}
+      {Array.from({ length: 16 }, (_, i) => (
+        <div key={`k${i}`} style={{ position: "absolute", left: `${(i * 39 + 8) % 100}%`, bottom: "-50px", fontSize: 14 + (i % 3) * 6, opacity: 0.06 + (i % 3) * 0.03, animation: `float-up-emoji ${7 + (i % 4) * 2}s ease-in ${i * 0.8}s infinite` }}>
+          {["💋", "💗", "🌸", "💕", "✨", "🩷"][i % 6]}
+        </div>
+      ))}
     </div>
   );
 }
 
-// ── Kiss confetti ───────────────────────────────────────────────────────────
-function KissBurst() {
-  const [particles,setParticles]=useState<any[]>([]);
-  useEffect(()=>{
-    const emojis=["💋","💗","💖","🌸","✨","🩷","💕","😘","🎀","💝"];
-    setParticles(Array.from({length:90},(_,i)=>({id:i,emoji:emojis[i%emojis.length],angle:(i/90)*360,dist:100+Math.random()*200,size:16+Math.random()*26,dur:0.7+Math.random()*0.9,delay:Math.random()*0.5})));
-  },[]);
+/* ─── Forgiveness burst ─────────────────────────────────────────── */
+function ForgivenessBurst() {
+  const emojis = ["💋", "💗", "💖", "🌸", "✨", "🩷", "💕", "😘"];
+  const particles = Array.from({ length: 72 }, (_, i) => ({
+    id: i, emoji: emojis[i % emojis.length], angle: (i / 72) * 360,
+    dist: 90 + Math.random() * 170, size: 16 + Math.random() * 22,
+    dur: 0.7 + Math.random() * 0.8, delay: Math.random() * 0.4,
+  }));
   return (
-    <div style={{position:"fixed",inset:0,pointerEvents:"none",zIndex:50,overflow:"hidden"}}>
-      {[...Array(7)].map((_,b)=>(
-        <div key={b} style={{position:"absolute",left:`${10+b*13}%`,top:`${10+(b%3)*28}%`}}>
-          {particles.map(p=>(
-            <motion.div key={p.id} initial={{x:0,y:0,scale:0,opacity:1}}
-              animate={{x:Math.cos(p.angle*Math.PI/180)*p.dist,y:Math.sin(p.angle*Math.PI/180)*p.dist,scale:1,opacity:0}}
-              transition={{duration:p.dur,delay:b*0.2+p.delay,ease:"easeOut"}}
-              style={{position:"absolute",fontSize:p.size}}>{p.emoji}</motion.div>
+    <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 50, overflow: "hidden" }}>
+      {[...Array(6)].map((_, burst) => (
+        <div key={burst} style={{ position: "absolute", left: `${12 + burst * 14}%`, top: `${12 + (burst % 3) * 24}%` }}>
+          {particles.map(p => (
+            <motion.div key={p.id}
+              initial={{ x: 0, y: 0, scale: 0, opacity: 1 }}
+              animate={{ x: Math.cos(p.angle * Math.PI / 180) * p.dist, y: Math.sin(p.angle * Math.PI / 180) * p.dist, scale: 1, opacity: 0 }}
+              transition={{ duration: p.dur, delay: burst * 0.25 + p.delay, ease: "easeOut" }}
+              style={{ position: "absolute", fontSize: p.size }}>{p.emoji}</motion.div>
           ))}
         </div>
       ))}
@@ -51,111 +54,64 @@ function KissBurst() {
   );
 }
 
-// ── Sad bouncing mascot ─────────────────────────────────────────────────────
-function Mascot({mood}:{mood:"devastated"|"hopeful"|"ecstatic"}) {
-  const faces={devastated:"🥺",hopeful:"😢",ecstatic:"😍"};
-  const colors={devastated:"drop-shadow(0 0 18px rgba(255,110,180,0.3))",hopeful:"drop-shadow(0 0 22px rgba(255,110,180,0.45))",ecstatic:"drop-shadow(0 0 30px rgba(255,110,180,0.7))"};
-  return (
-    <motion.div
-      animate={{
-        y: mood==="ecstatic"?[0,-30,0]:[0,-14,0],
-        rotate: mood==="ecstatic"?[0,-12,12,-8,8,0]:[0,-3,3,0],
-        scale: mood==="ecstatic"?[1,1.1,1]:1,
-      }}
-      transition={{duration:mood==="ecstatic"?0.5:2,repeat:Infinity,ease:"easeInOut"}}
-      style={{fontSize:"clamp(4.5rem,15vw,7.5rem)",display:"block",filter:colors[mood]}}>
-      {faces[mood]}
-    </motion.div>
-  );
+/* ─── Typewriter ─────────────────────────────────────────────────── */
+function Typewriter({ text, speed = 36, onDone }: { text: string; speed?: number; onDone?: () => void }) {
+  const [shown, setShown] = useState("");
+  const [done, setDone] = useState(false);
+  useEffect(() => {
+    setShown(""); setDone(false);
+    let i = 0;
+    const iv = setInterval(() => {
+      i++; setShown(text.slice(0, i));
+      if (i >= text.length) { clearInterval(iv); setDone(true); onDone?.(); }
+    }, speed);
+    return () => clearInterval(iv);
+  }, [text]);
+  return <span>{shown}{!done && <span style={{ animation: "blink 0.8s step-end infinite", color: "#FF6FA3" }}>|</span>}</span>;
 }
 
-// ── Typewriter ──────────────────────────────────────────────────────────────
-function Typewriter({text,speed=35,onDone}:{text:string;speed?:number;onDone?:()=>void}) {
-  const [shown,setShown]=useState("");
-  const [done,setDone]=useState(false);
-  useEffect(()=>{
-    setShown("");setDone(false);
-    let i=0;
-    const iv=setInterval(()=>{i++;setShown(text.slice(0,i));if(i>=text.length){clearInterval(iv);setDone(true);onDone?.();}},speed);
-    return ()=>clearInterval(iv);
-  },[text]);
-  return <span>{shown}{!done&&<span style={{animation:"blink 0.8s step-end infinite",color:"#ff6eb4"}}>|</span>}</span>;
-}
+/* ─── Evil No Button ────────────────────────────────────────────── */
+function EvilNoButton({ attempts, onAttempt }: { attempts: number; onAttempt: () => void }) {
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [visible, setVisible] = useState(true);
+  const [message, setMessage] = useState("");
 
-// ── Reason cards (flip in like dominoes) ───────────────────────────────────
-function ReasonCards({reasons}:{reasons:string[]}) {
-  const [shown,setShown]=useState(0);
-  useEffect(()=>{
-    if(shown>=reasons.filter(Boolean).length) return;
-    const t=setTimeout(()=>setShown(s=>s+1),700);
-    return ()=>clearTimeout(t);
-  },[shown,reasons]);
-  return (
-    <div style={{display:"flex",flexDirection:"column",gap:12,width:"100%",maxWidth:500}}>
-      {reasons.filter(Boolean).map((r,i)=>(
-        <AnimatePresence key={i}>
-          {i<shown&&(
-            <motion.div initial={{opacity:0,x:-40,rotateY:-25}} animate={{opacity:1,x:0,rotateY:0}} transition={{duration:0.6,ease:[0.16,1,0.3,1]}}
-              style={{display:"flex",alignItems:"flex-start",gap:14,background:"rgba(255,110,180,0.06)",border:"1px solid rgba(255,110,180,0.18)",borderRadius:14,padding:"14px 18px",textAlign:"left"}}>
-              <span style={{fontSize:"1.1rem",flexShrink:0}}>💗</span>
-              <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.05rem",color:"rgba(255,220,235,0.82)",lineHeight:1.65}}>{r}</span>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      ))}
-    </div>
-  );
-}
+  const escapeMessages = ["Nope! 😜", "Too slow! 💨", "Nice try 😇", "The audacity 😂", "Not today! 🏃", "Catch me! 🌸", "lol bye 💅"];
 
-// ── The Evil "No" Button ────────────────────────────────────────────────────
-function EvilNo({attempts,onAttempt}:{attempts:number;onAttempt:()=>void}) {
-  const [pos,setPos]=useState({x:0,y:0});
-  const [flash,setFlash]=useState("");
-  const msgs=["Nope 😜","Too slow! 💨","Nice try 😇","The audacity 💅","Not today! 🏃","lol bye 😂","Still no 🙈","Hehe 👻","U thought 💀","I'm literally running 🌸"];
-  const gone=attempts>=6;
+  useEffect(() => { if (attempts >= 5) setVisible(false); }, [attempts]);
 
-  const flee=useCallback(()=>{
-    if(gone) return;
+  const flee = useCallback(() => {
     onAttempt();
-    setFlash(msgs[attempts%msgs.length]);
-    setTimeout(()=>setFlash(""),1000);
-    // pick a random spot — but keep within reasonable bounds
-    const newX=(Math.random()-0.5)*300;
-    const newY=(Math.random()-0.5)*220;
-    setPos({x:newX,y:newY});
-  },[attempts,gone,onAttempt]);
+    setMessage(escapeMessages[attempts % escapeMessages.length]);
+    setTimeout(() => setMessage(""), 900);
+    setPos({ x: (Math.random() - 0.5) * 260, y: (Math.random() - 0.5) * 180 });
+  }, [attempts, onAttempt]);
 
-  if(gone) return null;
+  const scale = Math.max(0.35, 1 - attempts * 0.13);
+  const opacity = Math.max(0.2, 1 - attempts * 0.16);
 
-  const scale=Math.max(0.28,1-attempts*0.12);
-  const opacity=Math.max(0.18,1-attempts*0.14);
+  if (!visible) return null;
 
   return (
-    <div style={{position:"relative",display:"inline-block"}}>
-      <motion.div animate={{x:pos.x,y:pos.y}} transition={{type:"spring",stiffness:420,damping:18}} style={{position:"relative"}}>
-        <button
-          onMouseEnter={flee}
-          onTouchStart={flee}
-          onClick={flee}
+    <div style={{ position: "relative", display: "inline-block" }}>
+      <motion.div animate={{ x: pos.x, y: pos.y }} transition={{ type: "spring", stiffness: 380, damping: 18 }}
+        style={{ position: "relative" }} onMouseEnter={flee} onTouchStart={flee}>
+        <button onClick={flee}
+          className="sqbtn sqbtn-ghost"
           style={{
-            padding:`${Math.round(10*scale)}px ${Math.round(26*scale)}px`,
-            borderRadius:50,border:"1px solid rgba(255,110,180,0.25)",
-            background:"rgba(255,110,180,0.07)",
-            color:`rgba(255,160,195,${opacity})`,
-            cursor:"pointer",fontFamily:"'Cinzel',serif",
-            fontSize:`${0.78*scale}rem`,letterSpacing:"0.1em",
-            transform:`scale(${scale}) rotate(${attempts*9}deg)`,
-            transition:"all 0.3s",userSelect:"none",opacity,
-            boxShadow:"none",
+            transform: `scale(${scale}) rotate(${attempts * 9}deg)`,
+            opacity, fontSize: `${0.88 * scale}rem`,
+            padding: `${13 * scale}px ${24 * scale}px`,
+            transition: "transform 0.3s, opacity 0.3s",
           }}>
           No 😤
         </button>
       </motion.div>
       <AnimatePresence>
-        {flash&&(
-          <motion.div initial={{opacity:0,y:0,scale:0.6}} animate={{opacity:1,y:-44,scale:1}} exit={{opacity:0}} transition={{duration:0.4}}
-            style={{position:"absolute",top:0,left:"50%",transform:"translateX(-50%)",whiteSpace:"nowrap",fontFamily:"'Dancing Script',cursive",fontSize:"1rem",color:"#ff6eb4",pointerEvents:"none",zIndex:30}}>
-            {flash}
+        {message && (
+          <motion.div initial={{ opacity: 0, y: 0, scale: 0.5 }} animate={{ opacity: 1, y: -44, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}
+            style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", whiteSpace: "nowrap", fontFamily: "var(--font-fun)", fontSize: "1rem", color: "#FF85A2", pointerEvents: "none" }}>
+            {message}
           </motion.div>
         )}
       </AnimatePresence>
@@ -163,113 +119,137 @@ function EvilNo({attempts,onAttempt}:{attempts:number;onAttempt:()=>void}) {
   );
 }
 
-// ── MAIN PAGE ───────────────────────────────────────────────────────────────
-export default function SorryStoryPage({ params }: { params: Promise<{ id: string }> }) {
+/* ─── Mascot ─────────────────────────────────────────────────────── */
+function Mascot({ mood }: { mood: "sad" | "hopeful" | "happy" }) {
+  const faces = { sad: "🥺", hopeful: "😢", happy: "😍" };
+  return (
+    <motion.div
+      animate={{ y: [0, -18, 0], rotate: mood === "happy" ? [0, -12, 12, 0] : [0, -4, 4, 0] }}
+      transition={{ duration: mood === "happy" ? 0.45 : 1.8, repeat: Infinity, ease: "easeInOut" }}
+      style={{ fontSize: "clamp(4rem,15vw,7rem)", display: "block", filter: "drop-shadow(0 0 24px rgba(255,100,180,0.5))" }}>
+      {faces[mood]}
+    </motion.div>
+  );
+}
+
+/* ─── MAIN ───────────────────────────────────────────────────────── */
+export default function SorryIdPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
-  const [data,setData]=useState<SorryData|null>(null);
-  const [error,setError]=useState(false);
-  const [scene,setScene]=useState<"loading"|"apology"|"question"|"forgiven">("loading");
-  const [apologyDone,setApologyDone]=useState(false);
-  const [noAttempts,setNoAttempts]=useState(0);
-  const [kissBurst,setKissBurst]=useState(false);
+  const [data, setData] = useState<SorryData | null>(null);
+  const [error, setError] = useState(false);
+  const [scene, setScene] = useState<"loading" | "apology" | "question" | "forgiven">("loading");
+  const [noAttempts, setNoAttempts] = useState(0);
+  const [apologyDone, setApologyDone] = useState(false);
+  const [showFireworks, setShowFireworks] = useState(false);
 
-  useEffect(()=>{
-    console.log("[sorry/[id]] Fetching with ID:", id);
-    readClient.fetch(SORRY_QUERY,{id}).then(d=>{
-      console.log("[sorry/[id]] Query result:", d);
-      if(!d){console.error("[sorry/[id]] Document not found");setError(true);return;}
+  useEffect(() => {
+    readClient.fetch(SORRY_QUERY, { id }).then((d: SorryData) => {
+      if (!d) { setError(true); return; }
       setData(d);
-      setTimeout(()=>setScene("apology"),700);
-    }).catch(err=>{console.error("[sorry/[id]] Fetch error:", err);setError(true);});
-  },[id]);
+      setTimeout(() => setScene("apology"), 600);
+    }).catch(() => setError(true));
+  }, [id]);
 
-  const handleForgiven=useCallback(()=>{
+  const handleForgiven = async () => {
     setScene("forgiven");
-    setKissBurst(true);
-    setTimeout(()=>setKissBurst(false),3800);
-    // Notify Sanity
-    fetch("/api/forgiven",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})}).catch(()=>{});
-  },[id]);
+    setShowFireworks(true);
+    setTimeout(() => setShowFireworks(false), 3500);
+    try { await fetch("/api/forgiven", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) }); } catch {}
+  };
 
-  const noGone=noAttempts>=6;
-  const yesScale=Math.min(1.6,1+noAttempts*0.1);
-  const mood=noAttempts===0?"devastated":noAttempts<3?"hopeful":"ecstatic";
+  const noGone = noAttempts >= 5;
+  const yesScale = Math.min(1.5, 1 + noAttempts * 0.1);
 
-  const forgiveTaunts=[
-    "The 'No' button doesn't feel like cooperating today 🙈",
-    "Interesting… it keeps running away 🏃‍♂️💨",
-    "Maybe the universe is trying to tell you something… ✨",
-    "Okay at this point it's obviously a sign 💅",
-    "One more try and it might just disappear entirely… 👀",
-    "Yeah I'm pretty sure the No button has given up on you 😂",
-  ];
+  const SectionLabel = ({ children }: { children: React.ReactNode }) => (
+    <div style={{ fontFamily: "var(--font-round)", fontSize: "0.68rem", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,133,162,0.5)", marginBottom: 20, textAlign: "center" }}>
+      ✦ {children} ✦
+    </div>
+  );
 
-  if(error) return (
-    <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",textAlign:"center",background:"#0d0008",padding:40}}>
-      <PinkCosmos/>
-      <div style={{position:"relative",zIndex:2}}>
-        <div style={{fontSize:"3rem",marginBottom:16}}>💔</div>
-        <p style={{fontFamily:"'Cormorant Garamond',serif",color:"rgba(255,200,220,0.5)",fontStyle:"italic"}}>This link seems broken — ask him to send a new one.</p>
+  if (error) return (
+    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: 40 }}>
+      <PinkBg />
+      <div style={{ position: "relative", zIndex: 2 }}>
+        <div style={{ fontSize: "3.5rem", marginBottom: 16, animation: "float-bob 2s ease-in-out infinite" }}>💔</div>
+        <h2 style={{ fontFamily: "var(--font-fun)", fontSize: "1.4rem", color: "#FF85A2", marginBottom: 12 }}>Link broken…</h2>
+        <p style={{ fontFamily: "var(--font-display)", color: "rgba(255,200,220,0.55)", fontStyle: "italic" }}>Ask him to send a new one.</p>
       </div>
     </div>
   );
 
-  if(!data||scene==="loading") return (
-    <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"#0d0008"}}>
-      <PinkCosmos/>
-      <motion.div style={{position:"relative",zIndex:2,textAlign:"center"}}>
-        <motion.div animate={{scale:[1,1.25,1]}} transition={{duration:1.1,repeat:Infinity}}>
-          <span style={{fontSize:"3rem"}}>💗</span>
+  if (!data || scene === "loading") return (
+    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <PinkBg />
+      <motion.div style={{ position: "relative", zIndex: 2, textAlign: "center" }}>
+        <motion.div animate={{ scale: [1, 1.25, 1] }} transition={{ duration: 1, repeat: Infinity }}>
+          <span style={{ fontSize: "3rem" }}>💗</span>
         </motion.div>
       </motion.div>
     </div>
   );
 
   return (
-    <div style={{minHeight:"100vh",background:"#0d0008",position:"relative",overflowX:"hidden"}}>
-      <PinkCosmos/>
-      {kissBurst&&<KissBurst/>}
+    <div style={{ minHeight: "100vh", position: "relative", overflowX: "hidden" }}>
+      <PinkBg />
+      {showFireworks && <ForgivenessBurst />}
 
       <AnimatePresence mode="wait">
 
         {/* ── APOLOGY SCENE ── */}
-        {scene==="apology"&&(
-          <motion.div key="apology" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0,scale:0.97}} transition={{duration:0.9}}
-            style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",padding:"60px 24px",position:"relative",zIndex:2}}>
+        {scene === "apology" && (
+          <motion.div key="apology" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, scale: 0.97 }}
+            style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "60px 20px", position: "relative", zIndex: 2 }}>
 
-            <motion.img initial={{opacity:0,y:-10}} animate={{opacity:1,y:0}} transition={{duration:0.65}}
+            <motion.img initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}
               src={BRAND_IMG.sorry} alt=""
-              style={{height:54,width:"auto",marginBottom:12,objectFit:"contain",filter:"drop-shadow(0 0 14px rgba(255,110,180,0.35))"}}/>
+              style={{ height: 52, width: "auto", marginBottom: 16, objectFit: "contain", filter: "drop-shadow(0 6px 20px rgba(255,77,126,0.4))", animation: "float-bob 3s ease-in-out infinite" }} />
 
-            <Mascot mood="devastated"/>
+            <Mascot mood="sad" />
 
-            <motion.div initial={{opacity:0,y:26}} animate={{opacity:1,y:0}} transition={{delay:0.4,duration:0.9}} style={{marginTop:28,marginBottom:14}}>
-              <p style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(0.9rem,3vw,1.1rem)",letterSpacing:"0.22em",color:"rgba(255,182,210,0.5)",textTransform:"uppercase",marginBottom:10}}>a message for</p>
-              <div style={{fontFamily:"'Dancing Script',cursive",fontSize:"clamp(2.4rem,9vw,4.5rem)",color:"#ff6eb4",textShadow:"0 0 30px rgba(255,110,180,0.5),0 0 60px rgba(255,110,180,0.2)",lineHeight:1.1}}>{data.to} 💗</div>
-            </motion.div>
-
-            <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.1,duration:0.9}} style={{maxWidth:540,margin:"28px auto 0",width:"100%"}}>
-              <div style={{background:"rgba(255,110,180,0.04)",border:"1px solid rgba(255,110,180,0.15)",borderRadius:22,padding:"40px 34px",backdropFilter:"blur(20px)",boxShadow:"0 20px 60px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.03)"}}>
-                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.05rem,2.5vw,1.25rem)",lineHeight:1.95,color:"rgba(255,220,235,0.88)",fontStyle:"italic"}}>
-                  <Typewriter text={data.apology} speed={30} onDone={()=>setApologyDone(true)}/>
-                </div>
-                <div style={{marginTop:26,fontFamily:"'Dancing Script',cursive",fontSize:"1.25rem",color:"rgba(255,110,180,0.7)",textAlign:"right"}}>— {data.from} 💋</div>
+            {/* "A message for NAME" block */}
+            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8 }}
+              style={{ marginTop: 24, marginBottom: 8 }}>
+              <div style={{ fontFamily: "var(--font-round)", fontSize: "0.7rem", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,162,196,0.55)", marginBottom: 8 }}>a message for</div>
+              <div style={{ fontFamily: "var(--font-fun)", fontSize: "clamp(2.4rem,9vw,4.5rem)", color: "#FF85A2", textShadow: "0 0 32px rgba(255,107,163,0.5), 0 0 60px rgba(255,107,163,0.2)", lineHeight: 1.1 }}>
+                {data.to} 💗
               </div>
             </motion.div>
 
-            {/* Reasons flip in */}
-            {apologyDone&&data.reasons?.length>0&&(
-              <motion.div initial={{opacity:0,y:22}} animate={{opacity:1,y:0}} transition={{duration:0.8}} style={{marginTop:28,width:"100%",display:"flex",flexDirection:"column",alignItems:"center",gap:14}}>
-                <p style={{fontFamily:"'Cinzel',serif",fontSize:"0.68rem",letterSpacing:"0.22em",color:"rgba(255,150,200,0.45)",textTransform:"uppercase"}}>reasons I'm sorry</p>
-                <ReasonCards reasons={data.reasons}/>
+            {/* Apology message card */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.8 }}
+              style={{ maxWidth: 520, width: "100%", margin: "24px auto 0" }}>
+              <div className="jelly-card" style={{ padding: "32px 26px", borderColor: "rgba(255,107,163,0.18)" }}>
+                <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1rem,2.6vw,1.2rem)", lineHeight: 1.95, color: "rgba(255,230,240,0.88)", fontStyle: "italic" }}>
+                  <Typewriter text={data.apology} speed={32} onDone={() => setApologyDone(true)} />
+                </div>
+                <div style={{ marginTop: 20, fontFamily: "var(--font-fun)", fontSize: "1.1rem", color: "rgba(255,107,163,0.7)", textAlign: "right" }}>
+                  — {data.from} 💋
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Reasons list */}
+            {apologyDone && data.reasons?.filter(Boolean).length > 0 && (
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
+                style={{ maxWidth: 480, width: "100%", marginTop: 24 }}>
+                <SectionLabel>Why I'm Sorry</SectionLabel>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  {data.reasons.filter(Boolean).map((r, i) => (
+                    <motion.div key={i} initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.18 }}
+                      className="jelly-card" style={{ padding: "14px 18px", display: "flex", alignItems: "flex-start", gap: 12, textAlign: "left", borderColor: "rgba(255,107,163,0.15)" }}>
+                      <span style={{ fontSize: "1.1rem", flexShrink: 0 }}>💗</span>
+                      <span style={{ fontFamily: "var(--font-display)", fontSize: "1rem", color: "rgba(255,230,240,0.78)", lineHeight: 1.65, fontStyle: "italic" }}>{r}</span>
+                    </motion.div>
+                  ))}
+                </div>
               </motion.div>
             )}
 
-            {apologyDone&&(
-              <motion.button initial={{opacity:0,y:22}} animate={{opacity:1,y:0}} transition={{delay:0.4,duration:0.8}}
-                onClick={()=>setScene("question")}
-                whileHover={{scale:1.07}} whileTap={{scale:0.95}}
-                style={{marginTop:40,padding:"16px 44px",borderRadius:50,border:"none",background:"linear-gradient(135deg,#ff6eb4,#e91e8c)",color:"white",fontFamily:"'Cinzel',serif",fontSize:"0.85rem",letterSpacing:"0.15em",textTransform:"uppercase",cursor:"pointer",boxShadow:"0 0 30px rgba(255,110,180,0.45)",fontWeight:700}}>
+            {apologyDone && (
+              <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.7 }}
+                className="sqbtn sqbtn-rose"
+                onClick={() => setScene("question")}
+                style={{ marginTop: 36, fontSize: "1rem", padding: "18px 44px", animation: "jelly-pulse 2.5s ease-in-out 1s infinite" }}>
                 Read My Question 💋
               </motion.button>
             )}
@@ -277,64 +257,54 @@ export default function SorryStoryPage({ params }: { params: Promise<{ id: strin
         )}
 
         {/* ── QUESTION SCENE ── */}
-        {scene==="question"&&(
-          <motion.div key="question" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} transition={{duration:0.9}}
-            style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",padding:"60px 24px",position:"relative",zIndex:2}}>
+        {scene === "question" && (
+          <motion.div key="question" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "60px 20px", position: "relative", zIndex: 2 }}>
 
-            <Mascot mood={mood}/>
+            <Mascot mood={noAttempts > 2 ? "hopeful" : "sad"} />
 
-            <motion.div initial={{opacity:0,y:22}} animate={{opacity:1,y:0}} transition={{delay:0.3,duration:0.9}} style={{marginTop:28,marginBottom:44}}>
-              <h2 style={{fontFamily:"'Dancing Script',cursive",fontSize:"clamp(2rem,7vw,3.5rem)",color:"#ff6eb4",textShadow:"0 0 30px rgba(255,110,180,0.5)",lineHeight:1.3,marginBottom:14}}>
-                Are you still mad at me? 🥺
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
+              style={{ marginTop: 24, marginBottom: 44 }}>
+              <h2 style={{ fontFamily: "var(--font-fun)", fontSize: "clamp(1.8rem,6.5vw,3rem)", color: "#FF85A2", textShadow: "0 0 30px rgba(255,133,162,0.5)", lineHeight: 1.3, marginBottom: 10 }}>
+                Are you still mad at me?
               </h2>
-              <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"1rem",color:"rgba(255,200,225,0.4)",fontStyle:"italic"}}>choose wisely… or let fate decide 👀</p>
+              <p style={{ fontFamily: "var(--font-display)", fontSize: "1rem", color: "rgba(255,200,225,0.4)", fontStyle: "italic" }}>choose carefully 👀</p>
             </motion.div>
 
             {/* Taunts */}
             <AnimatePresence>
-              {noAttempts>0&&!noGone&&(
-                <motion.div key={noAttempts} initial={{opacity:0,scale:0.85,y:10}} animate={{opacity:1,scale:1,y:0}} exit={{opacity:0,y:-10}}
-                  style={{marginBottom:22,fontFamily:"'Dancing Script',cursive",fontSize:"1.05rem",color:"rgba(255,150,200,0.7)",maxWidth:400}}>
-                  {forgiveTaunts[Math.min(noAttempts-1,5)]}
+              {noAttempts > 0 && !noGone && (
+                <motion.div key={noAttempts} initial={{ opacity: 0, scale: 0.8, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0 }}
+                  style={{ marginBottom: 20, fontFamily: "var(--font-display)", fontSize: "1rem", fontStyle: "italic", color: "rgba(255,162,196,0.7)" }}>
+                  {["The 'No' button doesn't want to be clicked 🙈", "It keeps running away! Weird… 🏃💨", "Maybe the universe is giving you a sign? ✨", "Okay it's definitely trying to tell you something 😭", "One more try and it might just disappear… 👀"][Math.min(noAttempts - 1, 4)]}
                 </motion.div>
               )}
-              {noGone&&(
-                <motion.div initial={{opacity:0,scale:0.6}} animate={{opacity:1,scale:1}} transition={{type:"spring",bounce:0.5}}
-                  style={{marginBottom:22,fontFamily:"'Dancing Script',cursive",fontSize:"1.1rem",color:"#ff6eb4"}}>
-                  The 'No' button has officially left the chat 😇✨
+              {noGone && (
+                <motion.div initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }}
+                  style={{ marginBottom: 20, fontFamily: "var(--font-fun)", fontSize: "1rem", color: "#FF85A2" }}>
+                  The 'No' button has left the chat 😇✨
                 </motion.div>
               )}
             </AnimatePresence>
 
-            {/* YES + NO */}
-            <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:32,flexWrap:"wrap",position:"relative",minHeight:130}}>
-              <motion.button
-                onClick={handleForgiven}
-                animate={{scale:yesScale}}
-                whileHover={{scale:yesScale*1.09}}
-                whileTap={{scale:yesScale*0.94}}
-                style={{
-                  padding:"18px 50px",borderRadius:50,border:"none",
-                  background:"linear-gradient(135deg,#ff6eb4,#e91e8c)",
-                  color:"white",fontFamily:"'Cinzel',serif",
-                  fontSize:"1rem",letterSpacing:"0.12em",
-                  cursor:"pointer",fontWeight:700,whiteSpace:"nowrap",
-                  boxShadow:`0 0 ${24+noAttempts*10}px rgba(255,110,180,${0.45+noAttempts*0.08})`,
-                }}>
+            {/* YES / NO */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 28, flexWrap: "wrap", position: "relative", minHeight: 110 }}>
+              <motion.button className="sqbtn sqbtn-rose" onClick={handleForgiven}
+                animate={{ scale: yesScale }}
+                whileHover={{ scale: yesScale * 1.07 }} whileTap={{ scale: yesScale * 0.94 }}
+                style={{ padding: "18px 44px", fontSize: "1rem", whiteSpace: "nowrap", boxShadow: `0 ${8 + noAttempts * 4}px ${32 + noAttempts * 8}px rgba(255,77,126,${0.4 + noAttempts * 0.07})` }}>
                 Okay fine 😤💕
               </motion.button>
 
-              <EvilNo attempts={noAttempts} onAttempt={()=>setNoAttempts(n=>n+1)}/>
+              <EvilNoButton attempts={noAttempts} onAttempt={() => setNoAttempts(n => n + 1)} />
             </div>
 
-            {/* Soft alternatives */}
-            <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.8}}
-              style={{marginTop:52,display:"flex",gap:12,flexWrap:"wrap",justifyContent:"center"}}>
-              {["I'm not mad, just disappointed 😞","Fine. But you owe me 💅","Only because you're cute 🥺"].map(label=>(
-                <button key={label} onClick={handleForgiven}
-                  style={{padding:"10px 20px",borderRadius:50,border:"1px solid rgba(255,110,180,0.22)",background:"rgba(255,110,180,0.05)",color:"rgba(255,200,220,0.6)",cursor:"pointer",fontFamily:"'Cormorant Garamond',serif",fontSize:"0.92rem",fontStyle:"italic",transition:"all 0.3s"}}
-                  onMouseEnter={e=>{(e.currentTarget).style.borderColor="rgba(255,110,180,0.5)";(e.currentTarget).style.color="#ff9dc8";}}
-                  onMouseLeave={e=>{(e.currentTarget).style.borderColor="rgba(255,110,180,0.22)";(e.currentTarget).style.color="rgba(255,200,220,0.6)";}}>
+            {/* Soft options */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}
+              style={{ marginTop: 44, display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center" }}>
+              {["I'm not mad, just disappointed 😞", "Fine. But you owe me 💅", "Only because you're cute 🥺"].map(label => (
+                <button key={label} className="sqbtn sqbtn-ghost" onClick={handleForgiven}
+                  style={{ fontFamily: "var(--font-display)", fontSize: "0.88rem", fontStyle: "italic", padding: "11px 18px", borderRadius: 50 }}>
                   {label}
                 </button>
               ))}
@@ -343,45 +313,49 @@ export default function SorryStoryPage({ params }: { params: Promise<{ id: strin
         )}
 
         {/* ── FORGIVEN SCENE ── */}
-        {scene==="forgiven"&&(
-          <motion.div key="forgiven" initial={{opacity:0,scale:0.88}} animate={{opacity:1,scale:1}} transition={{duration:0.9,ease:[0.16,1,0.3,1]}}
-            style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",padding:"60px 24px",position:"relative",zIndex:2}}>
+        {scene === "forgiven" && (
+          <motion.div key="forgiven" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "60px 20px", position: "relative", zIndex: 2 }}>
 
-            <Mascot mood="ecstatic"/>
+            <Mascot mood="happy" />
 
-            <motion.div initial={{opacity:0,y:32}} animate={{opacity:1,y:0}} transition={{delay:0.4,duration:0.9}}>
-              <h1 style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(1.8rem,6vw,3.8rem)",color:"#ff6eb4",textShadow:"0 0 40px rgba(255,110,180,0.65),0 0 80px rgba(255,110,180,0.3)",letterSpacing:"0.06em",marginTop:24,marginBottom:16}}>
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8 }}>
+              <h1 style={{ fontFamily: "var(--font-fun)", fontSize: "clamp(1.8rem,7vw,3.5rem)", color: "#FF85A2", textShadow: "0 0 40px rgba(255,133,162,0.6)", marginTop: 24, marginBottom: 14 }}>
                 SHE SAID YES!! 🎉💋
               </h1>
-              <p style={{fontFamily:"'Dancing Script',cursive",fontSize:"clamp(1.2rem,4vw,1.9rem)",color:"rgba(255,200,230,0.82)",marginBottom:40}}>
+              <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.1rem,3.5vw,1.6rem)", color: "rgba(255,220,235,0.8)", fontStyle: "italic", marginBottom: 32 }}>
                 {data.to} has officially forgiven you ✨
               </p>
             </motion.div>
 
-            {data.extra&&(
-              <motion.div initial={{opacity:0,y:24}} animate={{opacity:1,y:0}} transition={{delay:0.8,duration:0.9}} style={{maxWidth:500,marginBottom:40,width:"100%"}}>
-                <div style={{background:"rgba(255,110,180,0.05)",border:"1px solid rgba(255,110,180,0.2)",borderRadius:22,padding:"36px 30px",backdropFilter:"blur(20px)"}}>
-                  <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1rem,2.5vw,1.22rem)",color:"rgba(255,220,235,0.88)",lineHeight:1.9,fontStyle:"italic"}}>{data.extra}</div>
-                  <div style={{marginTop:22,fontFamily:"'Dancing Script',cursive",fontSize:"1.25rem",color:"#ff6eb4",textAlign:"right"}}>— {data.from}, forever yours 💋</div>
+            {data.extra && (
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 0.8 }}
+                style={{ maxWidth: 480, width: "100%", marginBottom: 32 }}>
+                <div className="jelly-card" style={{ padding: "32px 26px", borderColor: "rgba(255,107,163,0.2)" }}>
+                  <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1rem,2.5vw,1.15rem)", color: "rgba(255,230,240,0.85)", lineHeight: 1.85, fontStyle: "italic" }}>{data.extra}</div>
+                  <div style={{ marginTop: 18, fontFamily: "var(--font-fun)", fontSize: "1.1rem", color: "#FF85A2", textAlign: "right" }}>— {data.from}, forever yours 💋</div>
                 </div>
               </motion.div>
             )}
 
-            <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.2}} style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap",marginBottom:40}}>
-              {["💋","💗","😍","🌸","💖","✨","💋"].map((e,i)=>(
-                <motion.span key={i} animate={{y:[0,-14,0],scale:[1,1.25,1]}} transition={{duration:1.5,delay:i*0.2,repeat:Infinity}} style={{fontSize:"2.2rem",display:"inline-block"}}>{e}</motion.span>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }}
+              style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 36 }}>
+              {["💋", "💗", "😍", "🌸", "💖", "✨", "💋"].map((e, i) => (
+                <motion.span key={i} animate={{ y: [0, -14, 0], scale: [1, 1.25, 1] }}
+                  transition={{ duration: 1.5, delay: i * 0.2, repeat: Infinity }}
+                  style={{ fontSize: "2rem", display: "inline-block" }}>{e}</motion.span>
               ))}
             </motion.div>
 
-            <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.8}} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:12}}>
-              <img src={BRAND_IMG.logo} alt="LoveYouAI" style={{height:32,width:"auto",opacity:0.55,objectFit:"contain"}}/>
-              <p style={{fontFamily:"'Space Mono',monospace",fontSize:"0.58rem",color:"rgba(255,150,200,0.18)",letterSpacing:"0.1em",margin:0}}>
-                LOVEYOUAI · no more fights · just forever 💋
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6 }}
+              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+              <img src={BRAND_IMG.logo} alt="LoveYouAI" style={{ height: 30, width: "auto", opacity: 0.5, objectFit: "contain" }} />
+              <p style={{ fontFamily: "var(--font-round)", fontSize: "0.58rem", fontWeight: 700, color: "rgba(255,150,200,0.2)", letterSpacing: "0.1em" }}>
+                LOVEYOUAI · no more fights · just kisses 💋
               </p>
             </motion.div>
           </motion.div>
         )}
-
       </AnimatePresence>
     </div>
   );
