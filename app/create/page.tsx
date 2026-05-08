@@ -198,6 +198,16 @@ export default function CreatePage() {
                 <p style={{ fontFamily: "var(--font-round)", fontSize: "0.6rem", color: "rgba(255,255,255,0.15)", letterSpacing: "0.1em", fontWeight: 700 }}>LOVEYOUAI · pure love, zero cringe</p>
               </motion.div>
 
+              {/* For Him link */}
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }}
+                style={{ marginTop: 18, textAlign: "center" }}>
+                <a href="/him" style={{ display: "inline-flex", alignItems: "center", gap: 8, textDecoration: "none", background: "rgba(29,78,216,0.1)", border: "1px solid rgba(96,165,250,0.14)", borderRadius: 100, padding: "7px 18px" }}>
+                  <span style={{ fontSize: "0.85rem" }}>⚡</span>
+                  <span style={{ fontFamily: "var(--font-round)", fontSize: "0.6rem", fontWeight: 800, letterSpacing: "0.12em", color: "rgba(96,165,250,0.45)", textTransform: "uppercase" }}>He Deserves One Too →</span>
+                  <span style={{ fontSize: "0.85rem" }}>🔥</span>
+                </a>
+              </motion.div>
+
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}
                 style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginTop: 36, cursor: "pointer" }} onClick={() => window.location.href = "/old/create"}>
                 <img src={BRAND_IMG.logo} alt="" style={{ width: 22, height: 42, opacity: 0.88, objectFit: "contain" }} />

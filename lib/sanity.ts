@@ -66,3 +66,46 @@ export const LOVE_QUERY = `*[_type == "loveStory" && _id == $id][0]{
 export const SORRY_QUERY = `*[_type == "sorryStory" && _id == $id][0]{
   _id, to, from, apology, reasons, extra, forgiven, forgivenAt
 }`;
+
+// ── Him schemas ───────────────────────────────────────────────────────────────
+export const HIM_LOVE_SCHEMA = {
+  name: "himLove",
+  type: "document",
+  fields: [
+    { name: "to", type: "string" },
+    { name: "from", type: "string" },
+    { name: "message", type: "text" },
+    { name: "memory", type: "text" },
+    { name: "date", type: "string" },
+    { name: "song", type: "string" },
+    { name: "extra", type: "text" },   // challenge + vibe lines
+    { name: "photo", type: "image" },
+    { name: "createdAt", type: "datetime" },
+  ],
+};
+
+export const HIM_SORRY_SCHEMA = {
+  name: "himSorry",
+  type: "document",
+  fields: [
+    { name: "to", type: "string" },
+    { name: "from", type: "string" },
+    { name: "apology", type: "text" },
+    { name: "reasons", type: "array", of: [{ type: "string" }] },
+    { name: "extra", type: "text" },      // promise
+    { name: "comeback", type: "string" }, // post-forgive message
+    { name: "forgiven", type: "boolean" },
+    { name: "forgivenAt", type: "datetime" },
+    { name: "createdAt", type: "datetime" },
+  ],
+};
+
+// ── Him GROQ queries ──────────────────────────────────────────────────────────
+export const HIM_LOVE_QUERY = `*[_type == "himLove" && _id == $id][0]{
+  _id, to, from, message, memory, date, song, extra, createdAt,
+  photo{ asset->{ url } }
+}`;
+
+export const HIM_SORRY_QUERY = `*[_type == "himSorry" && _id == $id][0]{
+  _id, to, from, apology, reasons, extra, comeback, forgiven, forgivenAt
+}`;
